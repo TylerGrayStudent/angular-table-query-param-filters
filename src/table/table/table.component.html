@@ -1,0 +1,48 @@
+<div *ngSub="filteredData$; let data">
+  <mat-table
+    matSort
+    #table
+    [dataSource]="data"
+    (matSortChange)="sortChange($event)"
+  >
+    <ng-container matColumnDef="position">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.position }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Weight
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.weight }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Symbol
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.symbol }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <div *ngSub="paginator$; let paginator">
+    <mat-paginator
+      #paginator
+      (page)="handlePageEvent($event)"
+      [length]="+paginator.totalRecordCount"
+      [pageSize]="+paginator.take"
+      [pageSizeOptions]="PAGE_SIZE_OPTIONS"
+    >
+    </mat-paginator>
+  </div>
+</div>
